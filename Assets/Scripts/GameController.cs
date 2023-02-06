@@ -5,13 +5,16 @@ public class GameController : MonoBehaviour
 {
 	public GameModel gameModel;
 	public GameView gameView;
-	// public Enemy enemy;
-	// public EnemyView enemyView;
 
+	private void Start()
+	{
+		InvokeRepeating("Enemy", 2.5f, 2);
+	}
+	
 	void Update()
 	{
 		Player();
-		Enemy();
+		gameModel.EnemyIABullet();
 	}
 
 	private void Player()
@@ -19,41 +22,46 @@ public class GameController : MonoBehaviour
 		float horizontal = Input.GetAxis("Horizontal");
 		float vertical = Input.GetAxis("Vertical");
 
-		gameModel.Move(horizontal, vertical);
+		gameModel.PlayerMove(horizontal, vertical);
 		gameView.UpdateMovementAnimations(horizontal, vertical);
 		gameView.UpdateVisualDirection(horizontal);
 	}
 	
-	private void Enemy()
+	public void Enemy()
 	{
-		// enemy.Move();
-		// enemyView.UpdateMovementAnimations();
-
-		if (Input.GetKeyDown(KeyCode.Space))
-		{
-			gameModel.PickUpItem();
-
-		}
-
-		// if (enemy.Attack())
-		// {
-		// 	player.TakeDamage(10);
-		// 	enemyView.PlayAttackAnimation();
-		// }
+		gameModel.EnemyAttack();
 	}
-
-
+	
 	private void OnTriggerEnter2D(Collider2D other)
 	{
 		gameModel.PickUpItem();
 		gameView.PlayPickUpSound();
-		gameView.PickUpScore(gameModel.Score);
+		gameView.PickUpScore(gameModel.score);
 		
 		Destroy(other.gameObject);
 		
-		if(gameModel.Score == 50f)
+		if(gameModel.score == 50f)
 		{
 			gameView.ShowWin();
+			CancelInvoke();
+		}
+	}
+	
+	private void OnCollisionEnter2D(Collision2D other)
+	{
+		Debug.Log(other.collider.name);
+		if(other.collider.name == "slimer8(Clone)")
+		{
+			gameModel.TakeDamage(1);
+			gameView.HurtAnimation();
+			Destroy(other.gameObject);
+			
+			if(gameModel.health <= 0f)
+			{
+				gameView.Die();
+				gameView.ShowLose();
+				CancelInvoke();
+			}
 		}
 	}
 	

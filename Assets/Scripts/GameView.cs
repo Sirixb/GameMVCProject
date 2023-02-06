@@ -41,6 +41,11 @@ public class GameView : MonoBehaviour
 		scoreText.text = score.ToString();
 	}
 
+	public void PlayEnemyAttackSound()
+	{
+		audioSource.Play();
+	}
+	
 	public void ShowWin()
 	{
 		winGameObject.SetActive(true);
@@ -50,8 +55,21 @@ public class GameView : MonoBehaviour
 	{
 		loseGameObject.SetActive(true);
 	}
+
+	public void HurtAnimation()
+	{
+		animator.SetTrigger("Hurt");
+	}
+
+	public void Die()
+	{
+		animator.SetBool("Die", true);
+	}
 	
-	
+	public void DeactivatePlayer()
+	{
+		gameObject.SetActive(false);
+	}
 }
 
 
