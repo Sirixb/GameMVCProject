@@ -30,4 +30,16 @@ public class GameController : MonoBehaviour
 		// 	enemyView.PlayAttackAnimation();
 		// }
 	}
+	
+	private void OnTriggerEnter2D(Collider2D other)
+	{
+		playerModel.PickUpItem();
+		playerView.PickUpScore(playerModel.Score);
+		Destroy(other.gameObject);
+		
+		if(playerModel.Score == 50f)
+		{
+			playerView.Win();
+		}
+	}
 }

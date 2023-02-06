@@ -20,7 +20,7 @@ public class PlayerModel : MonoBehaviour
 	
 	public void PickUpItem()
 	{
-		Score++;
+		Score+= 10;
 	}
 
 	public void TakeDamage(int damage)

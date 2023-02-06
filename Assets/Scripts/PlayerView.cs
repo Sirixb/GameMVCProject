@@ -1,10 +1,16 @@
+using System;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class PlayerView : MonoBehaviour
 {
 	public Animator animator;
 	public AudioSource audioSource;
 	public SpriteRenderer spriteRenderer;
+	public Text scoreText;
+	public GameObject winGameObject;
+	public GameObject loseGameObject;
+	
 
 	public void UpdateMovementAnimations(float horizontal, float vertical)
 	{
@@ -27,6 +33,21 @@ public class PlayerView : MonoBehaviour
 	public void PlayPickUpSound()
 	{
 		audioSource.Play();
+	}
+	
+	public void PickUpScore(int score)
+	{
+		scoreText.text = score.ToString();
+	}
+
+	public void Win()
+	{
+		winGameObject.SetActive(true);
+	}
+	
+	public void Lose()
+	{
+		loseGameObject.SetActive(true);
 	}
 }
 
