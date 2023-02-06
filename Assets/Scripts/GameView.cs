@@ -1,8 +1,9 @@
 using System;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
-public class PlayerView : MonoBehaviour
+public class GameView : MonoBehaviour
 {
 	public Animator animator;
 	public AudioSource audioSource;
@@ -40,15 +41,17 @@ public class PlayerView : MonoBehaviour
 		scoreText.text = score.ToString();
 	}
 
-	public void Win()
+	public void ShowWin()
 	{
 		winGameObject.SetActive(true);
 	}
 	
-	public void Lose()
+	public void ShowLose()
 	{
 		loseGameObject.SetActive(true);
 	}
+	
+	
 }
 
 

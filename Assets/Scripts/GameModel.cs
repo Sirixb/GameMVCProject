@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerModel : MonoBehaviour
+public class GameModel : MonoBehaviour
 {
 	public int Health { get; set; }
 	public int Score { get; set; }

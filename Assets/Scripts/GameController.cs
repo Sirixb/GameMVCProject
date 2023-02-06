@@ -1,27 +1,38 @@
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class GameController : MonoBehaviour
 {
-	public PlayerModel playerModel;
-	public PlayerView playerView;
+	public GameModel gameModel;
+	public GameView gameView;
 	// public Enemy enemy;
 	// public EnemyView enemyView;
 
 	void Update()
 	{
+		Player();
+		Enemy();
+	}
+
+	private void Player()
+	{
 		float horizontal = Input.GetAxis("Horizontal");
 		float vertical = Input.GetAxis("Vertical");
 
-		playerModel.Move(horizontal, vertical);
-		playerView.UpdateMovementAnimations(horizontal, vertical);
-		playerView.UpdateVisualDirection(horizontal);
+		gameModel.Move(horizontal, vertical);
+		gameView.UpdateMovementAnimations(horizontal, vertical);
+		gameView.UpdateVisualDirection(horizontal);
+	}
+	
+	private void Enemy()
+	{
 		// enemy.Move();
 		// enemyView.UpdateMovementAnimations();
 
 		if (Input.GetKeyDown(KeyCode.Space))
 		{
-			playerModel.PickUpItem();
-			playerView.PlayPickUpSound();
+			gameModel.PickUpItem();
+
 		}
 
 		// if (enemy.Attack())
@@ -30,16 +41,25 @@ public class GameController : MonoBehaviour
 		// 	enemyView.PlayAttackAnimation();
 		// }
 	}
-	
+
+
 	private void OnTriggerEnter2D(Collider2D other)
 	{
-		playerModel.PickUpItem();
-		playerView.PickUpScore(playerModel.Score);
+		gameModel.PickUpItem();
+		gameView.PlayPickUpSound();
+		gameView.PickUpScore(gameModel.Score);
+		
 		Destroy(other.gameObject);
 		
-		if(playerModel.Score == 50f)
+		if(gameModel.Score == 50f)
 		{
-			playerView.Win();
+			gameView.ShowWin();
 		}
 	}
+	
+	public void Restart()
+	{
+		SceneManager.LoadScene(0);
+	}
 }
+
