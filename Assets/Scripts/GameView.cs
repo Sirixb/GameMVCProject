@@ -77,11 +77,13 @@ public class GameView : MonoBehaviour
 	public void ShowWin()
 	{
 		winGameObject.SetActive(true);
+		UpdateMovementAnimations(0,0);
 	}
 	
 	public void ShowLose()
 	{
 		loseGameObject.SetActive(true);
+		UpdateMovementAnimations(0,0);
 	}
 	
 }

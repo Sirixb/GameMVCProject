@@ -43,10 +43,17 @@ public class GameController : MonoBehaviour
 
 		if (IsWin())
 		{
-			gameView.ShowWin();
 			gameModel.capsuleCollider2DPlayer.enabled = false;
+			gameModel.PlayerMove(0, 0);
+			gameView.ShowWin();
 			CancelInvoke();
+			DisableScript();
 		}
+	}
+
+	private void DisableScript()
+	{
+		this.enabled = false;
 	}
 
 	private void PickupFruit()
@@ -72,9 +79,11 @@ public class GameController : MonoBehaviour
 			if (IsDie())
 			{
 				gameModel.capsuleCollider2DPlayer.enabled = false;
-				gameView.Die();
+				gameModel.PlayerMove(0,0);
 				gameView.ShowLose();
+				gameView.Die();
 				CancelInvoke();
+				DisableScript();
 			}
 		}
 	}
