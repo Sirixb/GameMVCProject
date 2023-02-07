@@ -11,6 +11,8 @@ GameObject:
   - component: {fileID: 6645110923266414358}
   - component: {fileID: 6645110923266414353}
   - component: {fileID: 6645110923266414359}
+  - component: {fileID: 2734872145995930559}
+  - component: {fileID: 5625157631913153538}
   m_Layer: 0
   m_Name: slimer8
   m_TagString: Untagged
@@ -108,3 +110,36 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 0.34540582, y: 0.3469994}
   m_EdgeRadius: 0
+--- !u!50 &2734872145995930559
+Rigidbody2D:
+  serializedVersion: 4
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6645110923266414352}
+  m_BodyType: 0
+  m_Simulated: 1
+  m_UseFullKinematicContacts: 0
+  m_UseAutoMass: 0
+  m_Mass: 1
+  m_LinearDrag: 0
+  m_AngularDrag: 0.05
+  m_GravityScale: 0
+  m_Material: {fileID: 0}
+  m_Interpolate: 0
+  m_SleepingMode: 1
+  m_CollisionDetection: 0
+  m_Constraints: 0
+--- !u!114 &5625157631913153538
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6645110923266414352}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 11e5b5ebe13b5b64eb4c69325190beaa, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

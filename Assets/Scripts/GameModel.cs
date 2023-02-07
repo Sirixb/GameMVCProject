@@ -7,11 +7,12 @@ public class GameModel : MonoBehaviour
 	
 	[Header("Player")]
 	public Rigidbody2D rigidbody2DPlayer;
+	public CapsuleCollider2D capsuleCollider2DPlayer;
 	public int health = 3;
 	public int score = 0;
-	private float playerVelocity = 5f;
+	public float playerVelocity = 5f;
 	private Vector2 movement;
-	
+
 	[Header("Enemy")]
 	public GameObject bullet;
 	public Transform bulletSpawn;
@@ -41,9 +42,6 @@ public class GameModel : MonoBehaviour
 	
 	public void EnemyIABullet()
 	{
-		// enemy.Move();
-		// enemyView.UpdateMovementAnimations();
-
 		Vector2 directionToPlayer = transform.position - bulletSpawn.position;
 
 		if(bulletInstance != null)
@@ -51,11 +49,6 @@ public class GameModel : MonoBehaviour
 			bulletInstance.transform.Translate((directionToPlayer.normalized * enemyVelocityAttack) * Time.deltaTime);
 			Destroy(bulletInstance, 4f);
 		}
-		// if (enemy.Attack())
-		// {
-		// 	player.TakeDamage(10);
-		// 	enemyView.PlayAttackAnimation();
-		// }
 	}
 }
 

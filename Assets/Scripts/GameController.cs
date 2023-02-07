@@ -5,7 +5,7 @@ public class GameController : MonoBehaviour
 {
 	public GameModel gameModel;
 	public GameView gameView;
-
+	
 	private void Start()
 	{
 		InvokeRepeating("Enemy", 2.5f, 2);
@@ -30,39 +30,71 @@ public class GameController : MonoBehaviour
 	public void Enemy()
 	{
 		gameModel.EnemyAttack();
+		gameView.PlayEnemyAttackSound();
 	}
 	
 	private void OnTriggerEnter2D(Collider2D other)
 	{
-		gameModel.PickUpItem();
-		gameView.PlayPickUpSound();
-		gameView.PickUpScore(gameModel.score);
-		
-		Destroy(other.gameObject);
-		
-		if(gameModel.score == 50f)
+		if (other.CompareTag("Cherry"))
+		{
+			PickupFruit();
+			Destroy(other.gameObject);
+		}
+
+		if (IsWin())
 		{
 			gameView.ShowWin();
+			gameModel.capsuleCollider2DPlayer.enabled = false;
 			CancelInvoke();
 		}
 	}
-	
+
+	private void PickupFruit()
+	{
+		gameModel.PickUpItem();
+		gameView.PlayPickUpSound();
+		gameView.PickUpScore(gameModel.score);
+	}
+
+	private bool IsWin()
+	{
+		return gameModel.score == 100f;
+	}
+
 	private void OnCollisionEnter2D(Collision2D other)
 	{
-		Debug.Log(other.collider.name);
-		if(other.collider.name == "slimer8(Clone)")
+
+		if (IsEnemyBullet(other))
 		{
-			gameModel.TakeDamage(1);
-			gameView.HurtAnimation();
+			UpdateHealth();
 			Destroy(other.gameObject);
-			
-			if(gameModel.health <= 0f)
+
+			if (IsDie())
 			{
+				gameModel.capsuleCollider2DPlayer.enabled = false;
 				gameView.Die();
 				gameView.ShowLose();
 				CancelInvoke();
 			}
 		}
+	}
+
+	private static bool IsEnemyBullet(Collision2D other)
+	{
+		return other.collider.name == "slimer8(Clone)";
+	}
+
+	private void UpdateHealth()
+	{
+		gameModel.TakeDamage(1);
+		gameView.HealthIcon(gameModel.health);
+		gameView.HurtAnimation();
+		gameView.HurtPlayerSound();
+	}
+
+	private bool IsDie()
+	{
+		return gameModel.health <= 0f;
 	}
 	
 	public void Restart()

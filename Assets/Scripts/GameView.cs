@@ -6,11 +6,14 @@ using UnityEngine.UI;
 public class GameView : MonoBehaviour
 {
 	public Animator animator;
-	public AudioSource audioSource;
+	public AudioSource playerAudioSource;
+	public AudioClip playerAudioHurt;
+	public AudioSource enemyAudioSource;
 	public SpriteRenderer spriteRenderer;
 	public Text scoreText;
 	public GameObject winGameObject;
 	public GameObject loseGameObject;
+	public GameObject[] healtIcon = new GameObject[3];
 	
 
 	public void UpdateMovementAnimations(float horizontal, float vertical)
@@ -33,7 +36,7 @@ public class GameView : MonoBehaviour
 
 	public void PlayPickUpSound()
 	{
-		audioSource.Play();
+		playerAudioSource.Play();
 	}
 	
 	public void PickUpScore(int score)
@@ -41,9 +44,34 @@ public class GameView : MonoBehaviour
 		scoreText.text = score.ToString();
 	}
 
+	public void HurtPlayerSound()
+	{
+		playerAudioSource.PlayOneShot(playerAudioHurt);
+	}
+	
+	public void HurtAnimation()
+	{
+		animator.SetTrigger("Hurt");
+	}
+	
+	public void Die()
+	{
+		animator.SetBool("Die", true);
+	}
+	
+	public void DeactivatePlayer()
+	{
+		gameObject.SetActive(false);
+	}
+	
 	public void PlayEnemyAttackSound()
 	{
-		audioSource.Play();
+		enemyAudioSource.Play();
+	}
+	
+	public void HealthIcon(int index)
+	{
+		healtIcon[index].SetActive(false);
 	}
 	
 	public void ShowWin()
@@ -55,21 +83,7 @@ public class GameView : MonoBehaviour
 	{
 		loseGameObject.SetActive(true);
 	}
-
-	public void HurtAnimation()
-	{
-		animator.SetTrigger("Hurt");
-	}
-
-	public void Die()
-	{
-		animator.SetBool("Die", true);
-	}
 	
-	public void DeactivatePlayer()
-	{
-		gameObject.SetActive(false);
-	}
 }
 
 
